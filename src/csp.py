@@ -4,7 +4,7 @@ import sys
 
 
 class CSP :
-    """ Class for CSP modelisation and solving 
+    """ Class for CSP modeling and solving 
     """
 
     def  __init__(self, path,numV, c_type='positive'):
