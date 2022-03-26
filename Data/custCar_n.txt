@@ -1,0 +1,20 @@
+//v variables
+v carrosserie
+v moteur
+v sieges
+//d domaines
+d rouge blanc noir jaune
+d essence diesel electrique
+d plastique cuir coton
+//c contraintes
+cv carrosserie moteur
+c rouge diesel
+c noir electrique
+cv carrosserie sieges
+c rouge plastique
+c noir plastique
+c jaune cuir
+c blanc coton
+cv moteur sieges
+c diesel cuir
+c electrique plastique

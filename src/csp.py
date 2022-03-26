@@ -1,10 +1,11 @@
 
 import copy
 import sys
-### csp class in python 
-sys.setrecursionlimit(100000000)
+
 
 class CSP :
+    """ Class for CSP modelisation and solving 
+    """
 
     def  __init__(self, path,numV, c_type='positive'):
         """ path: descriptif textual file location \n
@@ -15,12 +16,11 @@ class CSP :
         self.numV = numV
         self.varN, self.const, self.domain,self.map = self.data(path)
         self.var = list(self.map.values())
-        print('var init', self.var)
+        print('csp init')
         self.sol = []
         self.DC= copy.deepcopy(self.domain)
         self.forwarding = {}
         self.iter = 0
-
 
     def data(self,path):
         """ Extracting variables, domains and constraints given file's path
@@ -50,8 +50,6 @@ class CSP :
                     contrainte[con].append(i[2:].replace(':\n','').split())
 
         return var, contrainte, domain, mapped
-
-
 
     def order(self, info = 'DEFAULT'):
         """ variable scheduling optimisation, the ordering creterion is given in info \n
@@ -172,8 +170,7 @@ class CSP :
                     removed = [i for i in self.DC[i] if i not in allowed]
                     self.DC[i]= copy.copy(allowed)
                     self.forwarding[p][i]=removed
-                    
-                
+                         
     def rev_forward(self, prec ,p):
         """reversing the forward checking induced by the variable p
         """
@@ -187,8 +184,6 @@ class CSP :
             for i,li in self.forwarding[j].items():
                 if i == p :
                     self.DC[p]=list(set(self.DC[i])-set(li))
-
-            
 
     def select(self,p):
         """ select a value for the variable p \n
@@ -237,7 +232,7 @@ class CSP :
             self.solvable= False
             return False
 
-    def getSol(self):
+    def dispSol(self):
         """ display solution if found after call to the solver
         """
         if self.solvable :
@@ -247,6 +242,8 @@ class CSP :
             for i in result :
                 print(i)
             print(f"Solution in {self.iter} iterations")
-            return result
-        print(f"Unsolvable no solution found. Iterations: {self.iter}")
+        else :
+            print(f"Unsolvable no solution found. Iterations: {self.iter}")
 
+    def getSol(self):
+        return self.sol
